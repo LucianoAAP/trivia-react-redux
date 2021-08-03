@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-// import { connect }
+import { connect } from 'react-redux';
+import { func } from 'prop-types';
+import { actionChangeLogin } from '../redux/actions';
 
 class Login extends Component {
   constructor() {
@@ -7,10 +9,11 @@ class Login extends Component {
     this.state = {
       email: '',
       name: '',
-      disabled: false,
+      disabled: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDisabled = this.handleDisabled.bind(this);
+    this.handleUserChanges = this.handleUserChanges.bind(this);
   }
 
   handleChange({ target }) {
@@ -29,6 +32,12 @@ class Login extends Component {
     } else {
       this.setState({ disabled: true });
     }
+  }
+
+  handleUserChanges() {
+    const { setUser } = this.props;
+    const { name, email } = this.state;
+    setUser({ name, email });
   }
 
   render() {
@@ -61,6 +70,7 @@ class Login extends Component {
           disabled={ disabled }
           type="button"
           data-testid="btn-play"
+          onClick={ this.handleUserChanges }
         >
           Start
         </button>
@@ -69,4 +79,12 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  setUser: func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  setUser: (user) => dispatch(actionChangeLogin(user)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
