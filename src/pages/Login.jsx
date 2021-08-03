@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { func } from 'prop-types';
+import { func, shape } from 'prop-types';
 import { actionChangeLogin } from '../redux/actions';
 
 class Login extends Component {
@@ -14,6 +14,7 @@ class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleDisabled = this.handleDisabled.bind(this);
     this.handleUserChanges = this.handleUserChanges.bind(this);
+    this.configurationsButton = this.configurationsButton.bind(this);
   }
 
   handleChange({ target }) {
@@ -38,6 +39,11 @@ class Login extends Component {
     const { setUser } = this.props;
     const { name, email } = this.state;
     setUser({ name, email });
+  }
+
+  configurationsButton() {
+    const { history } = this.props;
+    history.push('/configurations');
   }
 
   render() {
@@ -74,6 +80,13 @@ class Login extends Component {
         >
           Start
         </button>
+        <button
+          type="button"
+          data-testid="btn-settings"
+          onClick={ this.configurationsButton }
+        >
+          Configurations
+        </button>
       </form>
     );
   }
@@ -81,6 +94,9 @@ class Login extends Component {
 
 Login.propTypes = {
   setUser: func.isRequired,
+  history: shape({
+    push: func.isRequired,
+  }).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
