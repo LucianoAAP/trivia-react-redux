@@ -8,10 +8,11 @@ class Questions extends Component {
     super(props);
     this.state = {
       id: 0,
-      rightAnswer: '',
-      changeWrongAnswers: '',
+      right: '',
+      wrong: '',
       disabled: false,
       showCountdown: true,
+      display: 'none',
     };
     this.randomAnswer = this.randomAnswer.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -29,10 +30,11 @@ class Questions extends Component {
   handleClick() {
     this.setState((prevState) => ({
       id: prevState.id + 1,
-      changeWrongAnswers: '',
-      rightAnswer: '',
+      wrong: '',
+      right: '',
       disabled: false,
       showCountdown: false,
+      display: 'none',
     }), () => {
       this.setState({
         showCountdown: true,
@@ -42,15 +44,16 @@ class Questions extends Component {
 
   changeColor() {
     this.setState({
-      changeWrongAnswers: '3px solid rgb(255, 0, 0)',
-      rightAnswer: '3px solid rgb(6, 240, 15)',
+      wrong: '3px solid rgb(255, 0, 0)',
+      right: '3px solid rgb(6, 240, 15)',
       disabled: true,
+      display: '',
     });
   }
 
   render() {
     const { apiResult } = this.props;
-    const { id, rightAnswer, changeWrongAnswers, disabled, showCountdown } = this.state;
+    const { id, right, wrong, disabled, showCountdown, display } = this.state;
     if (apiResult.length === 0) return <p>Loading...</p>;
     const { category, question, correct_answer: correct } = apiResult[id];
     const answerArray = this.randomAnswer(apiResult[id]);
@@ -66,7 +69,7 @@ class Questions extends Component {
                 key={ index }
                 type="button"
                 data-testid="correct-answer"
-                style={ { border: rightAnswer } }
+                style={ { border: right } }
                 onClick={ this.changeColor }
                 disabled={ disabled }
               >
@@ -79,7 +82,7 @@ class Questions extends Component {
               key={ index }
               type="button"
               data-testid={ `wrong-answer-${index2}` }
-              style={ { border: changeWrongAnswers } }
+              style={ { border: wrong } }
               onClick={ this.changeColor }
               disabled={ disabled }
             >
@@ -89,6 +92,7 @@ class Questions extends Component {
         <button
           type="button"
           onClick={ this.handleClick }
+          style={ { display } }
           data-testid="btn-next"
         >
           Próxima
