@@ -11,5 +11,4 @@ class Config extends Component {
     );
   }
 }
-
 export default Config;
