@@ -4,6 +4,11 @@ import { connect } from 'react-redux';
 import Countdown from '../components/Countdown';
 import { increaseScore } from '../redux/actions/increaseScore';
 
+const three = 3;
+const two = 2;
+const one = 1;
+const ten = 10;
+
 class Questions extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +23,7 @@ class Questions extends Component {
     this.randomAnswer = this.randomAnswer.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.changeColor = this.changeColor.bind(this);
+    this.handleRightClick = this.handleRightClick.bind(this);
   }
 
   /** função de randomização https://flaviocopes.com/how-to-shuffle-array-javascript/ */
@@ -56,10 +62,6 @@ class Questions extends Component {
     const { scoreChange, apiResult } = this.props;
     const { id } = this.state;
     const { difficulty } = apiResult[id];
-    const three = 3;
-    const two = 2;
-    const one = 1;
-    const ten = 10;
     const multiplier = (str) => {
       if (str === 'hard') {
         return three;
@@ -69,11 +71,13 @@ class Questions extends Component {
       }
       return one;
     };
-    const hardShip = multiplier(difficulty);
     const timer = document.querySelector('#countdown').innerHTML;
-    const score = ten + (timer * hardShip);
+    const score = ten + (timer * multiplier(difficulty));
     scoreChange(score);
-    localStorage.setItem('score', score);
+    const state = JSON.parse(localStorage.getItem('state'));
+    state.player.score += score;
+    state.player.assertions += 1;
+    localStorage.setItem('state', JSON.stringify(state));
     this.setState({
       wrong: '3px solid rgb(255, 0, 0)',
       right: '3px solid rgb(6, 240, 15)',
@@ -101,7 +105,7 @@ class Questions extends Component {
                 type="button"
                 data-testid="correct-answer"
                 style={ { border: right } }
-                onClick={ this.changeColor }
+                onClick={ this.handleRightClick }
                 disabled={ disabled }
               >
                 { answer }

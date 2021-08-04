@@ -5,7 +5,7 @@ const INITIAL_STATE = { score: 0 };
 const scoreReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case INCREASE_SCORE:
-    return { ...state, score: state.score + action.score };
+    return { ...state, score: state.score + action.payload };
   default:
     return state;
   }
