@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { string, shape, arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
+import Countdown from '../components/Countdown';
 
 class Questions extends Component {
   constructor(props) {
@@ -10,11 +11,11 @@ class Questions extends Component {
       rightAnswer: '',
       changeWrongAnswers: '',
       disabled: false,
+      showCountdown: true,
     };
     this.randomAnswer = this.randomAnswer.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.changeRightColor = this.changeRightColor.bind(this);
-    this.changeWrongColor = this.changeWrongColor.bind(this);
+    this.changeColor = this.changeColor.bind(this);
   }
 
   /** função de randomização https://flaviocopes.com/how-to-shuffle-array-javascript/ */
@@ -31,18 +32,15 @@ class Questions extends Component {
       changeWrongAnswers: '',
       rightAnswer: '',
       disabled: false,
-    }));
-  }
-
-  changeRightColor() {
-    this.setState({
-      rightAnswer: '3px solid rgb(6, 240, 15)',
-      changeWrongAnswers: '3px solid rgb(255, 0, 0)',
-      disabled: true,
+      showCountdown: false,
+    }), () => {
+      this.setState({
+        showCountdown: true,
+      });
     });
   }
 
-  changeWrongColor() {
+  changeColor() {
     this.setState({
       changeWrongAnswers: '3px solid rgb(255, 0, 0)',
       rightAnswer: '3px solid rgb(6, 240, 15)',
@@ -52,8 +50,7 @@ class Questions extends Component {
 
   render() {
     const { apiResult } = this.props;
-    console.log(apiResult);
-    const { id, rightAnswer, changeWrongAnswers, disabled } = this.state;
+    const { id, rightAnswer, changeWrongAnswers, disabled, showCountdown } = this.state;
     if (apiResult.length === 0) return <p>Loading...</p>;
     const { category, question, correct_answer: correct } = apiResult[id];
     const answerArray = this.randomAnswer(apiResult[id]);
@@ -70,7 +67,7 @@ class Questions extends Component {
                 type="button"
                 data-testid="correct-answer"
                 style={ { border: rightAnswer } }
-                onClick={ this.changeRightColor }
+                onClick={ this.changeColor }
                 disabled={ disabled }
               >
                 { answer }
@@ -83,7 +80,7 @@ class Questions extends Component {
               type="button"
               data-testid={ `wrong-answer-${index2}` }
               style={ { border: changeWrongAnswers } }
-              onClick={ this.changeWrongColor }
+              onClick={ this.changeColor }
               disabled={ disabled }
             >
               { answer }
@@ -92,9 +89,11 @@ class Questions extends Component {
         <button
           type="button"
           onClick={ this.handleClick }
+          data-testid="btn-next"
         >
-          Next
+          Próxima
         </button>
+        {showCountdown ? <Countdown changeColor={ this.changeColor } /> : '' }
       </div>
     );
   }
