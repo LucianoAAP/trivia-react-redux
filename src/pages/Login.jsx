@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { func, shape } from 'prop-types';
-import { actionChangeLogin } from '../redux/actions';
+import { Redirect } from 'react-router';
+import { func, string, shape } from 'prop-types';
+import { actionChangeLogin, fetchUserTrivia } from '../redux/actions';
 
 class Login extends Component {
   constructor() {
@@ -10,6 +11,7 @@ class Login extends Component {
       email: '',
       name: '',
       disabled: true,
+      shouldRedirect: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleDisabled = this.handleDisabled.bind(this);
@@ -36,9 +38,16 @@ class Login extends Component {
   }
 
   handleUserChanges() {
-    const { setUser } = this.props;
+    const { setUser, fetchUser } = this.props;
     const { name, email } = this.state;
     setUser({ name, email });
+    fetchUser().then(() => {
+      const { token } = this.props;
+      localStorage.setItem('token', token);
+      this.setState({
+        shouldRedirect: true,
+      });
+    });
   }
 
   configurationsButton() {
@@ -47,7 +56,8 @@ class Login extends Component {
   }
 
   render() {
-    const { email, name, disabled } = this.state;
+    const { email, name, disabled, shouldRedirect } = this.state;
+    if (shouldRedirect) return <Redirect to="/Trivia" />;
     return (
       <form>
         <label htmlFor="email">
@@ -78,7 +88,7 @@ class Login extends Component {
           data-testid="btn-play"
           onClick={ this.handleUserChanges }
         >
-          Start
+          Jogar
         </button>
         <button
           type="button"
@@ -94,6 +104,8 @@ class Login extends Component {
 
 Login.propTypes = {
   setUser: func.isRequired,
+  fetchUser: func.isRequired,
+  token: string.isRequired,
   history: shape({
     push: func.isRequired,
   }).isRequired,
@@ -101,6 +113,11 @@ Login.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   setUser: (user) => dispatch(actionChangeLogin(user)),
+  fetchUser: () => dispatch(fetchUserTrivia()),
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+const mapStateToProps = (state) => ({
+  token: state.user.token,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
