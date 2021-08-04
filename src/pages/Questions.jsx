@@ -7,9 +7,14 @@ class Questions extends Component {
     super(props);
     this.state = {
       id: 0,
+      rightAnswer: '',
+      changeWrongAnswers: '',
+      disabled: false,
     };
     this.randomAnswer = this.randomAnswer.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.changeRightColor = this.changeRightColor.bind(this);
+    this.changeWrongColor = this.changeWrongColor.bind(this);
   }
 
   /** função de randomização https://flaviocopes.com/how-to-shuffle-array-javascript/ */
@@ -21,13 +26,34 @@ class Questions extends Component {
   }
 
   handleClick() {
-    this.setState((prevState) => ({ id: prevState.id + 1 }));
+    this.setState((prevState) => ({
+      id: prevState.id + 1,
+      changeWrongAnswers: '',
+      rightAnswer: '',
+      disabled: false,
+    }));
+  }
+
+  changeRightColor() {
+    this.setState({
+      rightAnswer: '3px solid rgb(6, 240, 15)',
+      changeWrongAnswers: '3px solid rgb(255, 0, 0)',
+      disabled: true,
+    });
+  }
+
+  changeWrongColor() {
+    this.setState({
+      changeWrongAnswers: '3px solid rgb(255, 0, 0)',
+      rightAnswer: '3px solid rgb(6, 240, 15)',
+      disabled: true,
+    });
   }
 
   render() {
     const { apiResult } = this.props;
     console.log(apiResult);
-    const { id } = this.state;
+    const { id, rightAnswer, changeWrongAnswers, disabled } = this.state;
     if (apiResult.length === 0) return <p>Loading...</p>;
     const { category, question, correct_answer: correct } = apiResult[id];
     const answerArray = this.randomAnswer(apiResult[id]);
@@ -43,6 +69,9 @@ class Questions extends Component {
                 key={ index }
                 type="button"
                 data-testid="correct-answer"
+                style={ { border: rightAnswer } }
+                onClick={ this.changeRightColor }
+                disabled={ disabled }
               >
                 { answer }
               </button>);
@@ -53,11 +82,19 @@ class Questions extends Component {
               key={ index }
               type="button"
               data-testid={ `wrong-answer-${index2}` }
+              style={ { border: changeWrongAnswers } }
+              onClick={ this.changeWrongColor }
+              disabled={ disabled }
             >
               { answer }
             </button>);
         })}
-        <button type="button" onClick={ this.handleClick }>Next</button>
+        <button
+          type="button"
+          onClick={ this.handleClick }
+        >
+          Next
+        </button>
       </div>
     );
   }
