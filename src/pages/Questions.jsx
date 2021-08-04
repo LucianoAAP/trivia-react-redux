@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { string, shape, arrayOf } from 'prop-types';
+import { string, shape, arrayOf, func } from 'prop-types';
 import { connect } from 'react-redux';
 import Countdown from '../components/Countdown';
+import { increaseScore } from '../redux/actions/increaseScore';
 
 class Questions extends Component {
   constructor(props) {
@@ -43,6 +44,36 @@ class Questions extends Component {
   }
 
   changeColor() {
+    this.setState({
+      wrong: '3px solid rgb(255, 0, 0)',
+      right: '3px solid rgb(6, 240, 15)',
+      disabled: true,
+      display: '',
+    });
+  }
+
+  handleRightClick() {
+    const { scoreChange, apiResult } = this.props;
+    const { id } = this.state;
+    const { difficulty } = apiResult[id];
+    const three = 3;
+    const two = 2;
+    const one = 1;
+    const ten = 10;
+    const multiplier = (str) => {
+      if (str === 'hard') {
+        return three;
+      }
+      if (str === 'medium') {
+        return two;
+      }
+      return one;
+    };
+    const hardShip = multiplier(difficulty);
+    const timer = document.querySelector('#countdown').innerHTML;
+    const score = ten + (timer * hardShip);
+    scoreChange(score);
+    localStorage.setItem('score', score);
     this.setState({
       wrong: '3px solid rgb(255, 0, 0)',
       right: '3px solid rgb(6, 240, 15)',
@@ -107,12 +138,17 @@ const mapStateToProps = (state) => ({
   apiResult: state.questionReducer.apiResult,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  scoreChange: (payload) => dispatch(increaseScore(payload)),
+});
+
 Questions.propTypes = {
   apiResult: arrayOf(shape({
     category: string,
     correct_answer: string,
     incorrect_answers: arrayOf(string),
   })).isRequired,
+  scoreChange: func.isRequired,
 };
 
-export default connect(mapStateToProps)(Questions);
+export default connect(mapStateToProps, mapDispatchToProps)(Questions);
