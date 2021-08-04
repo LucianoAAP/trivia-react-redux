@@ -40,10 +40,19 @@ class Login extends Component {
   handleUserChanges() {
     const { setUser, fetchUser } = this.props;
     const { name, email } = this.state;
+    const objectPlayer = {
+      player: {
+        name,
+        assertions: 0,
+        score: 0,
+        gravatarEmail: email,
+      },
+    };
     setUser({ name, email });
     fetchUser().then(() => {
       const { token } = this.props;
       localStorage.setItem('token', token);
+      localStorage.setItem('state', JSON.stringify(objectPlayer));
       this.setState({
         shouldRedirect: true,
       });

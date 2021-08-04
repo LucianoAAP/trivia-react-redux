@@ -44,7 +44,7 @@ class Countdown extends Component {
     const { seconds } = this.state;
     return (
       <div>
-        <p>{ seconds }</p>
+        <p id="countdown">{ seconds }</p>
       </div>
     );
   }

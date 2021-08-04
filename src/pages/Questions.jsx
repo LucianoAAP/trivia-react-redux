@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
-import { string, shape, arrayOf } from 'prop-types';
+import { string, shape, arrayOf, func } from 'prop-types';
 import { connect } from 'react-redux';
 import Countdown from '../components/Countdown';
+import { increaseScore } from '../redux/actions/increaseScore';
+
+const three = 3;
+const two = 2;
+const one = 1;
+const ten = 10;
 
 class Questions extends Component {
   constructor(props) {
@@ -17,6 +23,7 @@ class Questions extends Component {
     this.randomAnswer = this.randomAnswer.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.changeColor = this.changeColor.bind(this);
+    this.handleRightClick = this.handleRightClick.bind(this);
   }
 
   /** função de randomização https://flaviocopes.com/how-to-shuffle-array-javascript/ */
@@ -51,6 +58,34 @@ class Questions extends Component {
     });
   }
 
+  handleRightClick() {
+    const { scoreChange, apiResult } = this.props;
+    const { id } = this.state;
+    const { difficulty } = apiResult[id];
+    const multiplier = (str) => {
+      if (str === 'hard') {
+        return three;
+      }
+      if (str === 'medium') {
+        return two;
+      }
+      return one;
+    };
+    const timer = document.querySelector('#countdown').innerHTML;
+    const score = ten + (timer * multiplier(difficulty));
+    scoreChange(score);
+    const state = JSON.parse(localStorage.getItem('state'));
+    state.player.score += score;
+    state.player.assertions += 1;
+    localStorage.setItem('state', JSON.stringify(state));
+    this.setState({
+      wrong: '3px solid rgb(255, 0, 0)',
+      right: '3px solid rgb(6, 240, 15)',
+      disabled: true,
+      display: '',
+    });
+  }
+
   render() {
     const { apiResult } = this.props;
     const { id, right, wrong, disabled, showCountdown, display } = this.state;
@@ -70,7 +105,7 @@ class Questions extends Component {
                 type="button"
                 data-testid="correct-answer"
                 style={ { border: right } }
-                onClick={ this.changeColor }
+                onClick={ this.handleRightClick }
                 disabled={ disabled }
               >
                 { answer }
@@ -107,12 +142,17 @@ const mapStateToProps = (state) => ({
   apiResult: state.questionReducer.apiResult,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  scoreChange: (payload) => dispatch(increaseScore(payload)),
+});
+
 Questions.propTypes = {
   apiResult: arrayOf(shape({
     category: string,
     correct_answer: string,
     incorrect_answers: arrayOf(string),
   })).isRequired,
+  scoreChange: func.isRequired,
 };
 
-export default connect(mapStateToProps)(Questions);
+export default connect(mapStateToProps, mapDispatchToProps)(Questions);
