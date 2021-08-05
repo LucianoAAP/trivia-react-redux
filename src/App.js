@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Trivia from './pages/Trivia';
 import Config from './pages/Config';
 import Feedback from './pages/Feedback';
+import Ranking from './pages/Ranking';
 import './App.css';
 
 class App extends React.Component {
@@ -15,6 +16,7 @@ class App extends React.Component {
           <Route exact path="/trivia" component={ Trivia } />
           <Route exact path="/configurations" component={ Config } />
           <Route exact path="/feedback" component={ Feedback } />
+          <Route exact path="/ranking" component={ Ranking } />
         </Switch>
       </div>
     );
