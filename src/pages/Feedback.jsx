@@ -14,6 +14,12 @@ class Feedback extends Component {
         <span data-testid="feedback-text">
           { feedback }
         </span>
+        <span data-testid="feedback-total-score">
+          { player.player.score }
+        </span>
+        <span data-testid="feedback-total-question">
+          { `${qtd} Acertos` }
+        </span>
       </div>
     );
   }
