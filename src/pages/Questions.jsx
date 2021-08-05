@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { string, shape, arrayOf, func } from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import Countdown from '../components/Countdown';
 import { increaseScore } from '../redux/actions/increaseScore';
 
@@ -19,6 +20,7 @@ class Questions extends Component {
       disabled: false,
       showCountdown: true,
       display: 'none',
+      red: false,
     };
     this.randomAnswer = this.randomAnswer.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -35,6 +37,13 @@ class Questions extends Component {
   }
 
   handleClick() {
+    const { id } = this.state;
+    const max = 4;
+    if (id === max) {
+      this.setState({
+        red: true,
+      });
+    }
     this.setState((prevState) => ({
       id: prevState.id + 1,
       wrong: '',
@@ -88,7 +97,8 @@ class Questions extends Component {
 
   render() {
     const { apiResult } = this.props;
-    const { id, right, wrong, disabled, showCountdown, display } = this.state;
+    const { id, right, wrong, disabled, showCountdown, display, red } = this.state;
+    if (red) return <Redirect to="/feedback" />;
     if (apiResult.length === 0) return <p>Loading...</p>;
     const { category, question, correct_answer: correct } = apiResult[id];
     const answerArray = this.randomAnswer(apiResult[id]);
@@ -111,12 +121,11 @@ class Questions extends Component {
                 { answer }
               </button>);
           }
-          const index2 = wrongAnswers.indexOf(answer);
           return (
             <button
               key={ index }
               type="button"
-              data-testid={ `wrong-answer-${index2}` }
+              data-testid={ `wrong-answer-${wrongAnswers.indexOf(answer)}` }
               style={ { border: wrong } }
               onClick={ this.changeColor }
               disabled={ disabled }
