@@ -6,7 +6,14 @@ class Ranking extends Component {
     return (
       <div>
         <p data-testid="ranking-title">Ranking</p>
-        <Link to="/">Back</Link>
+        <Link to="/">
+          <button
+            data-testid="btn-go-home"
+            type="button"
+          >
+            Voltar
+          </button>
+        </Link>
       </div>
     );
   }
