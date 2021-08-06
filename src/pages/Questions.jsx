@@ -141,7 +141,7 @@ class Questions extends Component {
         >
           Próxima
         </button>
-        {showCountdown ? <Countdown changeColor={ this.changeColor } /> : '' }
+        {showCountdown && <Countdown changeColor={ this.changeColor } /> }
       </div>
     );
   }
