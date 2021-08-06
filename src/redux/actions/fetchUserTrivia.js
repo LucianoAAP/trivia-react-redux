@@ -1,12 +1,6 @@
-export const LOGIN = 'LOGIN';
 export const GET_USER_TRIVIA = 'GET_USER_TRIVIA';
 export const GET_USER_TRIVIA_SUCESS = 'GET_USER_TRIVIA_SUCESS';
 export const GET_USER_TRIVIA_ERROR = 'GET_USER_TRIVIA_ERROR';
-
-export const actionChangeLogin = (payload) => ({
-  type: LOGIN,
-  payload,
-});
 
 export const getUserTrivia = () => ({ type: GET_USER_TRIVIA });
 

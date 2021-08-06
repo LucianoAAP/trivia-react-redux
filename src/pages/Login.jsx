@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { func, string, shape } from 'prop-types';
-import { actionChangeLogin, fetchUserTrivia } from '../redux/actions';
+import { actionChangeLogin } from '../redux/actions/actionChangeLogin';
+import { fetchUserTrivia } from '../redux/actions/fetchUserTrivia';
 
 class Login extends Component {
   constructor() {
@@ -126,7 +127,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  token: state.user.token,
+  token: state.userReducer.token,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -1,8 +1,8 @@
-import { LOGIN,
-  GET_USER_TRIVIA,
+import { LOGIN } from '../actions/actionChangeLogin';
+import { GET_USER_TRIVIA,
   GET_USER_TRIVIA_SUCESS,
   GET_USER_TRIVIA_ERROR,
-} from '../actions';
+} from '../actions/fetchUserTrivia';
 
 const INITIAL_STATE = {
   email: '',
@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   token: '',
 };
 
-const user = (state = INITIAL_STATE, action) => {
+const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case LOGIN:
     return { ...state, ...action.payload };
@@ -25,4 +25,4 @@ const user = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default user;
+export default userReducer;

@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  token: state.user.token,
+  token: state.userReducer.token,
 });
 
 Trivia.propTypes = {
