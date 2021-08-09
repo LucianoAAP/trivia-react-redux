@@ -5,7 +5,6 @@ import Trivia from './pages/Trivia';
 import Config from './pages/Config';
 import Feedback from './pages/Feedback';
 import Ranking from './pages/Ranking';
-import './App.css';
 
 class App extends React.Component {
   render() {
