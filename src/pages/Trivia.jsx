@@ -7,8 +7,8 @@ import Header from '../components/Header';
 
 class Trivia extends Component {
   componentDidMount() {
-    const { token, setToken } = this.props;
-    setToken(token);
+    const { setToken, url } = this.props;
+    setToken(url);
   }
 
   render() {
@@ -26,12 +26,12 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  token: state.userReducer.token,
+  url: state.userReducer.url,
 });
 
 Trivia.propTypes = {
   setToken: func.isRequired,
-  token: string.isRequired,
+  url: string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Trivia);

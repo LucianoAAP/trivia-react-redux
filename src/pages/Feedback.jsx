@@ -36,26 +36,30 @@ class Feedback extends Component {
         <span data-testid="feedback-text">
           { feedback }
         </span>
-        <span data-testid="feedback-total-score">
-          { player.player.score }
-        </span>
+        <div>
+          <span data-testid="feedback-total-score">
+            { player.player.score }
+          </span>
+        </div>
         <span data-testid="feedback-total-question">
           { `${qtd} Acertos` }
         </span>
-        <button
-          data-testid="btn-play-again"
-          type="button"
-          onClick={ this.handlePlayAgain }
-        >
-          Play again
-        </button>
-        <button
-          data-testid="btn-ranking"
-          type="button"
-          onClick={ this.handleRanking }
-        >
-          Ver Ranking
-        </button>
+        <div>
+          <button
+            data-testid="btn-play-again"
+            type="button"
+            onClick={ this.handlePlayAgain }
+          >
+            Play again
+          </button>
+          <button
+            data-testid="btn-ranking"
+            type="button"
+            onClick={ this.handleRanking }
+          >
+            Ver Ranking
+          </button>
+        </div>
       </div>
     );
   }

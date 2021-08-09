@@ -5,9 +5,9 @@ export const fetchAction = (json) => ({ type: FETCH_QUESTIONS_API, apiResult: [j
 
 export const fetchError = (error) => ({ type: ERROR_QUESTIONS_FETCH, error });
 
-export const fetchQuestion = (token) => async (dispatch) => {
+export const fetchQuestion = (url) => async (dispatch) => {
   try {
-    const resp = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
+    const resp = await fetch(url);
     const result = await resp.json();
     dispatch(fetchAction(result));
   } catch (error) {

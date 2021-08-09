@@ -70,43 +70,46 @@ class Login extends Component {
     if (shouldRedirect) return <Redirect to="/Trivia" />;
     return (
       <form>
-        <label htmlFor="email">
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={ email }
-            onChange={ this.handleChange }
-            onKeyUp={ this.handleDisabled }
-            data-testid="input-gravatar-email"
-          />
-        </label>
-        <label htmlFor="name">
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={ name }
-            onChange={ this.handleChange }
-            onKeyUp={ this.handleDisabled }
-            data-testid="input-player-name"
-          />
-        </label>
-        <button
-          disabled={ disabled }
-          type="button"
-          data-testid="btn-play"
-          onClick={ this.handleUserChanges }
-        >
-          Jogar
-        </button>
-        <button
-          type="button"
-          data-testid="btn-settings"
-          onClick={ this.configurationsButton }
-        >
-          Configurations
-        </button>
+        <div className="form-div">
+          <label htmlFor="email" className="email-label">
+            <input
+              type="email"
+              name="email"
+              value={ email }
+              onChange={ this.handleChange }
+              onKeyUp={ this.handleDisabled }
+              data-testid="input-gravatar-email"
+              placeholder="Email"
+            />
+          </label>
+          <label htmlFor="name" className="name-label">
+            <input
+              name="name"
+              value={ name }
+              onChange={ this.handleChange }
+              onKeyUp={ this.handleDisabled }
+              data-testid="input-player-name"
+              placeholder="Nome"
+            />
+          </label>
+          <button
+            disabled={ disabled }
+            type="button"
+            data-testid="btn-play"
+            onClick={ this.handleUserChanges }
+            className="start-btn"
+          >
+            Jogar
+          </button>
+          <button
+            type="button"
+            data-testid="btn-settings"
+            onClick={ this.configurationsButton }
+            className="config-btn"
+          >
+            Configurations
+          </button>
+        </div>
       </form>
     );
   }
