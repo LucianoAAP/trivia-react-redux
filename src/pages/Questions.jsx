@@ -3,7 +3,7 @@ import { string, shape, arrayOf, func } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import Countdown from '../components/Countdown';
-import { increaseScore } from '../redux/actions/increaseScore';
+import { increaseScore } from '../redux/actions/changeScore';
 
 const three = 3;
 const two = 2;
@@ -57,8 +57,9 @@ class Questions extends Component {
   }
 
   handleClick() {
+    const { apiResult } = this.props;
     const { id } = this.state;
-    const max = 4;
+    const max = apiResult.length - 1;
     if (id === max) {
       const state = JSON.parse(localStorage.getItem('state'));
       this.setRanking(state);

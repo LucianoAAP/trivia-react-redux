@@ -5,7 +5,6 @@ class Ranking extends Component {
   render() {
     const rankingScore = JSON.parse(localStorage.getItem('ranking'));
     const ranking = rankingScore.sort((a, b) => b.score - a.score);
-    console.log(ranking);
     return (
       <div>
         <h1 data-testid="ranking-title">Ranking</h1>

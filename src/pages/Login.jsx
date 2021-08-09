@@ -4,6 +4,7 @@ import { Redirect } from 'react-router';
 import { func, string, shape } from 'prop-types';
 import { actionChangeLogin } from '../redux/actions/actionChangeLogin';
 import { fetchUserTrivia } from '../redux/actions/fetchUserTrivia';
+import { resetScore } from '../redux/actions/changeScore';
 
 class Login extends Component {
   constructor() {
@@ -18,6 +19,11 @@ class Login extends Component {
     this.handleDisabled = this.handleDisabled.bind(this);
     this.handleUserChanges = this.handleUserChanges.bind(this);
     this.configurationsButton = this.configurationsButton.bind(this);
+  }
+
+  componentDidMount() {
+    const { scoreReset } = this.props;
+    scoreReset();
   }
 
   handleChange({ target }) {
@@ -122,11 +128,13 @@ Login.propTypes = {
   history: shape({
     push: func.isRequired,
   }).isRequired,
+  scoreReset: func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   setUser: (user) => dispatch(actionChangeLogin(user)),
   fetchUser: () => dispatch(fetchUserTrivia()),
+  scoreReset: () => dispatch(resetScore()),
 });
 
 const mapStateToProps = (state) => ({
