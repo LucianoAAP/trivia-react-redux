@@ -9,6 +9,7 @@ class Config extends Component {
   constructor() {
     super();
     this.state = {
+      questionsNumber: 5,
       category: '',
       categories: [],
       difficulty: '',
@@ -43,8 +44,8 @@ class Config extends Component {
 
   handleClick() {
     const { setConfig } = this.props;
-    const { category, difficulty, type } = this.state;
-    setConfig(`https://opentdb.com/api.php?amount=5${category}${difficulty}${type}`);
+    const { category, difficulty, type, questionsNumber } = this.state;
+    setConfig(`https://opentdb.com/api.php?amount=${questionsNumber}${category}${difficulty}${type}`);
     this.setState({
       category: '',
       difficulty: '',
@@ -53,14 +54,24 @@ class Config extends Component {
   }
 
   render() {
-    const { category, difficulty, type, categories } = this.state;
+    const { category, difficulty, type, categories, questionsNumber } = this.state;
     if (categories.length === 0) return <div>Loading...</div>;
     return (
       <div>
         <form>
-          { console.log(categories) }
           <p data-testid="settings-title">settings-title</p>
           <Link to="/">Back</Link>
+          <label htmlFor="questionsNumber">
+            Number of questions
+            <input
+              name="questionsNumber"
+              type="number"
+              min="1"
+              max="10"
+              value={ questionsNumber }
+              onChange={ this.handleChange }
+            />
+          </label>
           <SelectLabel
             name="category"
             labelText="Select Category:"

@@ -3,7 +3,7 @@ import { string, shape, arrayOf, func } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import Countdown from '../components/Countdown';
-import { increaseScore } from '../redux/actions/increaseScore';
+import { increaseScore } from '../redux/actions/changeScore';
 
 const three = 3;
 const two = 2;
@@ -26,6 +26,26 @@ class Questions extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.changeColor = this.changeColor.bind(this);
     this.handleRightClick = this.handleRightClick.bind(this);
+    this.setRanking = this.setRanking.bind(this);
+  }
+
+  setRanking(state) {
+    const token = localStorage.getItem('token');
+    const picturePlayer = `https://www.gravatar.com/avatar/${token}`;
+    const obj = {
+      name: state.player.name, score: state.player.score, picture: picturePlayer,
+    };
+    // const lastRanking = localStorage.getItem('ranking');
+    if (!localStorage.getItem('ranking')) {
+      localStorage.setItem('ranking', JSON.stringify(
+        [obj],
+      ));
+      return obj;
+    }
+    const lastRanking = JSON.parse(localStorage.getItem('ranking'));
+    localStorage.setItem('ranking', JSON.stringify(
+      [...lastRanking, obj],
+    ));
   }
 
   /** função de randomização https://flaviocopes.com/how-to-shuffle-array-javascript/ */
@@ -37,9 +57,12 @@ class Questions extends Component {
   }
 
   handleClick() {
+    const { apiResult } = this.props;
     const { id } = this.state;
-    const max = 4;
+    const max = apiResult.length - 1;
     if (id === max) {
+      const state = JSON.parse(localStorage.getItem('state'));
+      this.setRanking(state);
       this.setState({
         red: true,
       });
