@@ -1,0 +1,33 @@
+.login-form {
+  background-color: cornflowerblue;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 2px black;
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  margin: 5px;
+  margin-top: 50%;
+  overflow: hidden;
+  padding: 50px 10px 10px;
+  width: 300px;
+}
+
+.button-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+
+.email-label {
+  margin-bottom: 10px;
+}
+
+.email-input {
+  margin-left: 5px;
+}
+
+.name-input {
+  margin-left: 3px;
+}

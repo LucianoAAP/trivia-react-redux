@@ -4,6 +4,7 @@ import { func, string } from 'prop-types';
 import Questions from './Questions';
 import { fetchQuestion } from '../redux/actions/questionsApiAct';
 import Header from '../components/Header';
+import '../css/Trivia.css';
 
 class Trivia extends Component {
   componentDidMount() {

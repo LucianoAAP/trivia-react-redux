@@ -5,6 +5,7 @@ import { func, string, shape } from 'prop-types';
 import { actionChangeLogin } from '../redux/actions/actionChangeLogin';
 import { fetchUserTrivia } from '../redux/actions/fetchUserTrivia';
 import { resetScore } from '../redux/actions/changeScore';
+import '../css/Login.css';
 
 class Login extends Component {
   constructor() {
@@ -30,7 +31,8 @@ class Login extends Component {
     const { name, value } = target;
     this.setState({
       [name]: value,
-    });
+    },
+    () => this.handleDisabled());
   }
 
   handleDisabled() {
@@ -75,29 +77,29 @@ class Login extends Component {
     const { email, name, disabled, shouldRedirect } = this.state;
     if (shouldRedirect) return <Redirect to="/Trivia" />;
     return (
-      <form>
-        <div className="form-div">
-          <label htmlFor="email" className="email-label">
-            <input
-              type="email"
-              name="email"
-              value={ email }
-              onChange={ this.handleChange }
-              onKeyUp={ this.handleDisabled }
-              data-testid="input-gravatar-email"
-              placeholder="Email"
-            />
-          </label>
-          <label htmlFor="name" className="name-label">
-            <input
-              name="name"
-              value={ name }
-              onChange={ this.handleChange }
-              onKeyUp={ this.handleDisabled }
-              data-testid="input-player-name"
-              placeholder="Nome"
-            />
-          </label>
+      <form className="login-form">
+        <label htmlFor="email" className="email-label">
+          <input
+            type="email"
+            name="email"
+            className="email-input"
+            value={ email }
+            onChange={ this.handleChange }
+            data-testid="input-gravatar-email"
+            placeholder="Email"
+          />
+        </label>
+        <label htmlFor="name" className="name-label">
+          <input
+            name="name"
+            className="name-input"
+            value={ name }
+            onChange={ this.handleChange }
+            data-testid="input-player-name"
+            placeholder="Nome"
+          />
+        </label>
+        <section className="button-section">
           <button
             disabled={ disabled }
             type="button"
@@ -115,7 +117,7 @@ class Login extends Component {
           >
             Configurations
           </button>
-        </div>
+        </section>
       </form>
     );
   }
