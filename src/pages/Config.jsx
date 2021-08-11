@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
+import { Button } from 'react-bootstrap';
 import SelectLabel from '../components/SelectLabel';
 import { changeUrl } from '../redux/actions/changeUrl';
+import '../css/Config.css';
 
 class Config extends Component {
   constructor() {
@@ -57,12 +59,11 @@ class Config extends Component {
     const { category, difficulty, type, categories, questionsNumber } = this.state;
     if (categories.length === 0) return <div>Loading...</div>;
     return (
-      <div>
-        <form>
-          <p data-testid="settings-title">Settings</p>
-          <Link to="/">Back</Link>
-          <label htmlFor="questionsNumber">
-            Number of questions
+      <form className="settings-form">
+        <h2 data-testid="settings-title" className="settings-title">Settings</h2>
+        <div className="settings-labels">
+          <label htmlFor="questionsNumber" className="config-label">
+            Number of questions:
             <input
               name="questionsNumber"
               type="number"
@@ -78,9 +79,10 @@ class Config extends Component {
             onChange={ this.handleChange }
             value={ category }
             optionList={ categories }
+            className="config-label"
           />
-          <label htmlFor="difficulty">
-            Select difficulty
+          <label htmlFor="difficulty" className="config-label">
+            Select difficulty:
             <select name="difficulty" value={ difficulty } onChange={ this.handleChange }>
               <option value="">Any difficulty</option>
               <option value="&difficulty=easy">Easy</option>
@@ -88,18 +90,20 @@ class Config extends Component {
               <option value="&difficulty=hard">Hard</option>
             </select>
           </label>
-          <label htmlFor="type">
-            Select type
+          <label htmlFor="type" className="config-label">
+            Select type:
             <select name="type" value={ type } onChange={ this.handleChange }>
               <option value="">Any type</option>
               <option value="&type=multiple">Multiple choice</option>
               <option value="&type=boolean">True / False</option>
             </select>
           </label>
-          <input type="button" value="Save changes" onClick={ this.handleClick } />
-        </form>
-      </div>
-    );
+        </div>
+        <section className="button-section-config">
+          <Button><Link to="/" className="settings-back">Back</Link></Button>
+          <Button onClick={ this.handleClick }>Save changes</Button>
+        </section>
+      </form>);
   }
 }
 

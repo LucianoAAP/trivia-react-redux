@@ -1,0 +1,45 @@
+.settings-title {
+  color: orangered;
+  margin-top: 50px;
+  text-shadow: -2px 0 black , 0 2px black , 2px 0 black , 0 -2px black;
+}
+
+.settings-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-labels {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  padding-top: 60px;
+}
+
+.settings-labels input {
+  border-radius: 5px;
+  margin-left: 5px;
+  width: 75px;
+}
+
+.settings-labels select {
+  margin-left: 5px;
+}
+
+.config-label {
+  padding-bottom: 30px;
+}
+
+.button-section-config {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 20px;
+  width: 200px;
+}
+
+.settings-back {
+  color: white;
+  text-decoration: none;
+}

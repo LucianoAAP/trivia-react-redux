@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 class LoginHeader extends Component {
   render() {
     return (
-      <header>
-        <h1 className="welcome">
+      <header className="login-header">
+        <h1>
           Welcome to the
           <em> Patursos na Lagoa </em>
           Trivia!
