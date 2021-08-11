@@ -59,7 +59,7 @@ class Config extends Component {
     return (
       <div>
         <form>
-          <p data-testid="settings-title">settings-title</p>
+          <p data-testid="settings-title">Settings</p>
           <Link to="/">Back</Link>
           <label htmlFor="questionsNumber">
             Number of questions
@@ -74,12 +74,13 @@ class Config extends Component {
           </label>
           <SelectLabel
             name="category"
-            labelText="Select Category:"
+            labelText="Select category:"
             onChange={ this.handleChange }
             value={ category }
             optionList={ categories }
           />
           <label htmlFor="difficulty">
+            Select difficulty
             <select name="difficulty" value={ difficulty } onChange={ this.handleChange }>
               <option value="">Any difficulty</option>
               <option value="&difficulty=easy">Easy</option>
@@ -88,6 +89,7 @@ class Config extends Component {
             </select>
           </label>
           <label htmlFor="type">
+            Select type
             <select name="type" value={ type } onChange={ this.handleChange }>
               <option value="">Any type</option>
               <option value="&type=multiple">Multiple choice</option>

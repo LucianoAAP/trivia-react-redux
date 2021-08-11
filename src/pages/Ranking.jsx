@@ -2,9 +2,30 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Ranking extends Component {
+  constructor() {
+    super();
+    this.state = {
+      ranking: [],
+    };
+    this.handleRanking = this.handleRanking.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleRanking();
+  }
+
+  handleRanking() {
+    if (JSON.parse(localStorage.getItem('ranking'))) {
+      const rankingScore = JSON.parse(localStorage.getItem('ranking'));
+      const ranking = rankingScore.sort((a, b) => b.score - a.score);
+      this.setState({ ranking });
+    } else {
+      this.setState({ ranking: [] });
+    }
+  }
+
   render() {
-    const rankingScore = JSON.parse(localStorage.getItem('ranking'));
-    const ranking = rankingScore.sort((a, b) => b.score - a.score);
+    const { ranking } = this.state;
     return (
       <div>
         <h1 data-testid="ranking-title">Ranking</h1>
@@ -20,9 +41,18 @@ class Ranking extends Component {
             data-testid="btn-go-home"
             type="button"
           >
-            Voltar
+            Back
           </button>
         </Link>
+        <button
+          type="button"
+          onClick={ () => {
+            localStorage.removeItem('ranking');
+            this.handleRanking();
+          } }
+        >
+          Clear ranking
+        </button>
       </div>
     );
   }
