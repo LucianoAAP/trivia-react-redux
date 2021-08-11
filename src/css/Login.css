@@ -59,6 +59,10 @@ header {
   width: 100%;
 }
 
+.login-header {
+  justify-content: center;
+}
+
 header h1 {
   color: rgb(110, 149, 221);
 
@@ -70,8 +74,4 @@ header h1 {
 
 header h1 em {
   color: rgb(168, 91, 36);
-}
-
-.welcome {
-  margin-left: 15%;
 }

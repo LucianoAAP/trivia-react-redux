@@ -4,11 +4,9 @@ import PropTypes from 'prop-types';
 class SelectLabel extends React.Component {
   render() {
     const { name, labelText, value, onChange,
-      optionList } = this.props;
+      optionList, className } = this.props;
     return (
-      <label
-        htmlFor={ name }
-      >
+      <label htmlFor={ name } className={ className }>
         { labelText }
         <select
           id={ name }
@@ -36,6 +34,7 @@ SelectLabel.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   optionList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  className: PropTypes.string.isRequired,
 };
 
 export default SelectLabel;
