@@ -13,6 +13,7 @@ class Trivia extends Component {
   }
 
   render() {
+    document.head.getElementsByTagName('style')[0].disable = true;
     return (
       <div>
         <Header />

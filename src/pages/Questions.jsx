@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { string, shape, arrayOf, func } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import { Button } from 'react-bootstrap';
 import Countdown from '../components/Countdown';
 import { increaseScore } from '../redux/actions/changeScore';
 
@@ -27,6 +28,8 @@ class Questions extends Component {
     this.changeColor = this.changeColor.bind(this);
     this.handleRightClick = this.handleRightClick.bind(this);
     this.setRanking = this.setRanking.bind(this);
+    this.insertNextButton = this.insertNextButton.bind(this);
+    this.showAnswer = this.showAnswer.bind(this);
   }
 
   setRanking(state) {
@@ -87,6 +90,9 @@ class Questions extends Component {
       right: '3px solid rgb(6, 240, 15)',
       disabled: true,
       display: '',
+    },
+    () => {
+      document.querySelector('.btn-next').style.backgroundColor = 'cadetblue';
     });
   }
 
@@ -110,61 +116,100 @@ class Questions extends Component {
     state.player.score += score;
     state.player.assertions += 1;
     localStorage.setItem('state', JSON.stringify(state));
-    this.setState({
-      wrong: '3px solid rgb(255, 0, 0)',
-      right: '3px solid rgb(6, 240, 15)',
-      disabled: true,
-      display: '',
-    });
+    this.changeColor();
+  }
+
+  insertNextButton() {
+    const { display } = this.state;
+    return (
+      <div id="next-container">
+        <Button
+          type="button"
+          onClick={ this.handleClick }
+          style={ { display } }
+          onMouseOver={ ({ target }) => {
+            target.style.backgroundColor = 'rgb(65, 153, 156)';
+          } }
+          onMouseLeave={ ({ target }) => {
+            target.style.backgroundColor = 'cadetblue';
+          } }
+          data-testid="btn-next"
+          className="btn-next"
+        >
+          Next
+        </Button>
+      </div>
+    );
+  }
+
+  showAnswer() {
+    const { apiResult } = this.props;
+    const { id, right, wrong, disabled } = this.state;
+    const { correct_answer: correct } = apiResult[id];
+    const answerArray = this.randomAnswer(apiResult[id]);
+    const translator = new DOMParser();
+    return (
+      <section className="question-answer-container">
+        {answerArray.map((answer, index) => {
+          const answerText = translator
+            .parseFromString(answer, 'text/html').firstChild.textContent;
+          const wrongAnswers = answerArray.filter((answerF) => answerF !== correct);
+          if (answer === correct) {
+            return (
+              <Button
+                key={ index }
+                type="button"
+                style={ { border: right } }
+                data-testid="correct-answer"
+                onClick={ this.handleRightClick }
+                disabled={ disabled }
+              >
+                { answerText }
+              </Button>);
+          }
+          return (
+            <Button
+              key={ index }
+              type="button"
+              id="correct-answer"
+              style={ { border: wrong } }
+              data-testid={ `wrong-answer-${wrongAnswers.indexOf(answer)}` }
+              onClick={ this.changeColor }
+              disabled={ disabled }
+            >
+              { answerText }
+            </Button>);
+        })}
+        { this.insertNextButton() }
+      </section>
+    );
   }
 
   render() {
     const { apiResult } = this.props;
-    const { id, right, wrong, disabled, showCountdown, display, red } = this.state;
+    const { id, showCountdown, red } = this.state;
     if (red) return <Redirect to="/feedback" />;
     if (apiResult.length === 0) return <p>Loading...</p>;
-    const { category, question, correct_answer: correct } = apiResult[id];
-    const answerArray = this.randomAnswer(apiResult[id]);
+    const { category, question } = apiResult[id];
+    const translator = new DOMParser();
+    const questionText = translator
+      .parseFromString(question, 'text/html').firstChild.textContent;
     return (
-      <div>
-        <div data-testid="question-category">{ category }</div>
-        <div data-testid="question-text">{ question }</div>
-        {answerArray.map((answer, index) => {
-          const wrongAnswers = answerArray.filter((answerF) => answerF !== correct);
-          if (answer === correct) {
-            return (
-              <button
-                key={ index }
-                type="button"
-                data-testid="correct-answer"
-                style={ { border: right } }
-                onClick={ this.handleRightClick }
-                disabled={ disabled }
-              >
-                { answer }
-              </button>);
-          }
-          return (
-            <button
-              key={ index }
-              type="button"
-              data-testid={ `wrong-answer-${wrongAnswers.indexOf(answer)}` }
-              style={ { border: wrong } }
-              onClick={ this.changeColor }
-              disabled={ disabled }
-            >
-              { answer }
-            </button>);
-        })}
-        <button
-          type="button"
-          onClick={ this.handleClick }
-          style={ { display } }
-          data-testid="btn-next"
-        >
-          Next
-        </button>
-        {showCountdown && <Countdown changeColor={ this.changeColor } /> }
+      <div className="question-container">
+        <section className="question-text-container">
+          <div data-testid="question-category" className="question-category">
+            <h3>
+              { category }
+            </h3>
+            {showCountdown && <Countdown changeColor={ this.changeColor } /> }
+          </div>
+          <div data-testid="question-text" className="question-text">
+            <h4>
+              { questionText }
+            </h4>
+          </div>
+        </section>
+        { this.showAnswer() }
       </div>
     );
   }

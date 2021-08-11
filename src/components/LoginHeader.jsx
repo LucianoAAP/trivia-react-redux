@@ -4,7 +4,7 @@ class LoginHeader extends Component {
   render() {
     return (
       <header>
-        <h1>
+        <h1 className="welcome">
           Welcome to the
           <em> Patursos na Lagoa </em>
           Trivia!
