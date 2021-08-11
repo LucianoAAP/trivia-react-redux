@@ -1,0 +1,64 @@
+.button-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+
+.feedback-container-btn button {
+  color: white;
+  margin: 5px;
+}
+
+.feedback-text {
+  border-right: 4px solid black;
+  font-size: 36px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.score-feedback {
+  display: flex;
+  justify-content: center;
+}
+
+.feedback-total-score {
+  align-items: center;
+  background: linear-gradient(45deg, cornflowerblue, white);
+  border-radius: 40px;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  font-size: 48px;
+  margin: 5px 0;
+  width: 120px;
+}
+
+.feedback-total-question {
+  font-size: 36px;
+}
+
+.typing-animation {
+  animation: blinkCursor 500ms steps(40) infinite normal , typing 4s steps(40) 1s normal
+    both;
+}
+
+@keyframes typing {
+
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 18em;
+  }
+}
+
+@keyframes blinkCursor {
+
+  from {
+    border-right-color: rgba(0, 0, 0, 0.75);
+  }
+
+  to {
+    border-right-color: transparent;
+  }
+}

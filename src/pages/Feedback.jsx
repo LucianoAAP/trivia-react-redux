@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
+import { Button } from 'react-bootstrap';
 import Header from '../components/Header';
+import '../css/Feedback.css';
 
 class Feedback extends Component {
   constructor() {
@@ -33,32 +35,34 @@ class Feedback extends Component {
     return (
       <div>
         <Header />
-        <span data-testid="feedback-text">
+        <span data-testid="feedback-text" className="feedback-text typing-animation">
           { feedback }
         </span>
-        <div>
-          <span data-testid="feedback-total-score">
+        <div className="score-feedback">
+          <span data-testid="feedback-total-score" className="feedback-total-score">
             { player.player.score }
           </span>
         </div>
-        <span data-testid="feedback-total-question">
+        <span data-testid="feedback-total-question" className="feedback-total-question">
           { `${qtd} Acertos` }
         </span>
-        <div>
-          <button
+        <div className="feedback-container-btn">
+          <Button
             data-testid="btn-play-again"
+            className="btn-play-again"
             type="button"
             onClick={ this.handlePlayAgain }
           >
             Play again
-          </button>
-          <button
+          </Button>
+          <Button
             data-testid="btn-ranking"
+            className="btn-ranking"
             type="button"
             onClick={ this.handleRanking }
           >
             View ranking
-          </button>
+          </Button>
         </div>
       </div>
     );
