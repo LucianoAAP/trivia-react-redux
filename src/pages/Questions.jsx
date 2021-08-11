@@ -162,7 +162,7 @@ class Questions extends Component {
           style={ { display } }
           data-testid="btn-next"
         >
-          Próxima
+          Next
         </button>
         {showCountdown && <Countdown changeColor={ this.changeColor } /> }
       </div>
