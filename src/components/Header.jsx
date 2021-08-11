@@ -9,8 +9,8 @@ class Header extends Component {
     return (
       <header>
         <img data-testid="header-profile-picture" src={ `https://www.gravatar.com/avatar/${md5(email).toString()}` } alt="gravatar" />
-        <p data-testid="header-player-name">{ name }</p>
-        <p data-testid="header-score">{ score }</p>
+        <h2 data-testid="header-player-name" className="player-name">{ name }</h2>
+        <h2 data-testid="header-score" className="score">{ score }</h2>
       </header>
     );
   }

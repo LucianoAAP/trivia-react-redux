@@ -14,12 +14,12 @@ body {
   pointer-events: none;
 }
 
-.red-border {
-  border: 1px solid red;
+.red-btn {
+  border: 3px solid red;
 }
 
-.green-border {
-  border: 1px solid green;
+.green-btn {
+  border: 3px solid green;
 }
 
 @media ( prefers-reduced-motion : no-preference ) {

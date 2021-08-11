@@ -103,7 +103,7 @@ class Login extends Component {
 
   render() {
     const { email, name, shouldRedirect } = this.state;
-    if (shouldRedirect) return <Redirect to="/Trivia" />;
+    if (shouldRedirect) return <Redirect to="/trivia" />;
     return (
       <div className="login-container align-items-center">
         <LoginHeader />

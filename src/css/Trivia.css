@@ -1,4 +1,59 @@
 header {
+  color: aliceblue;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+}
+
+header img {
+  border-radius: 50%;
+  margin-left: 50px;
+  padding: 3px;
+}
+
+header h2 {
+  margin-top: 25px;
+}
+
+.score {
+  margin-right: 150px;
+}
+
+.question-text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.question-category {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 35px;
+  margin-left: 40px;
+  margin-top: 10px;
+}
+
+.question-text {
+  margin: 15px;
+  margin-bottom: 20px;
+}
+
+.question-answer-container button {
+  margin: 5px;
+}
+
+.countdown {
+  background-color: rgb(138, 173, 214);
+  border: 2px solid darkslategrey;
+  border-radius: 50%;
+  height: 40px;
+  margin-right: 200px;
+  width: 40px;
+}
+
+.next-btn {
+  background-color: cadetblue;
+}
+
+.next-btn:hover {
+  background-color: rgb(65, 153, 156);
 }

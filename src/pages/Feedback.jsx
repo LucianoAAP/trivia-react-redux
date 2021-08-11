@@ -57,7 +57,7 @@ class Feedback extends Component {
             type="button"
             onClick={ this.handleRanking }
           >
-            View rankin
+            View ranking
           </button>
         </div>
       </div>
