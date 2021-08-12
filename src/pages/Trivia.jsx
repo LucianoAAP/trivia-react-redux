@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { func, string } from 'prop-types';
-import Questions from './Questions';
+import Questions from '../components/Questions';
 import { fetchQuestion } from '../redux/actions/questionsApiAct';
 import Header from '../components/Header';
 import '../css/Trivia.css';
