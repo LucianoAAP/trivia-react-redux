@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { Button } from 'react-bootstrap';
+import Typewriter from 'typewriter-effect';
 import Header from '../components/Header';
 import '../css/Feedback.css';
 
@@ -36,7 +37,11 @@ class Feedback extends Component {
       <div>
         <Header />
         <span data-testid="feedback-text" className="feedback-text typing-animation">
-          { feedback }
+          <Typewriter // Efeito de digitação na rederização do feedback: https://www.youtube.com/watch?v=1eXQJYL1s1k&t=19s
+            onInit={ (typewriter) => {
+              typewriter.typeString(`${feedback}`).start();
+            } }
+          />
         </span>
         <div className="score-feedback">
           <span data-testid="feedback-total-score" className="feedback-total-score">
