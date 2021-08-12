@@ -1,18 +1,12 @@
-.button-section {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  margin-top: 20px;
-}
-
 .feedback-container-btn button {
   color: white;
   margin: 5px;
 }
 
 .feedback-text {
-  border-right: 4px solid black;
+  display: flex;
   font-size: 36px;
+  justify-content: center;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -34,31 +28,4 @@
 
 .feedback-total-question {
   font-size: 36px;
-}
-
-.typing-animation {
-  animation: blinkCursor 500ms steps(40) infinite normal , typing 4s steps(40) 1s normal
-    both;
-}
-
-@keyframes typing {
-
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 18em;
-  }
-}
-
-@keyframes blinkCursor {
-
-  from {
-    border-right-color: rgba(0, 0, 0, 0.75);
-  }
-
-  to {
-    border-right-color: transparent;
-  }
 }
