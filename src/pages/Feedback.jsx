@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { string, shape, arrayOf } from 'prop-types';
 import { Redirect } from 'react-router';
 import { Button } from 'react-bootstrap';
 import Typewriter from 'typewriter-effect';
 import Header from '../components/Header';
 import '../css/Feedback.css';
+
+const three = 3;
+const five = 5;
 
 class Feedback extends Component {
   constructor() {
@@ -25,12 +30,13 @@ class Feedback extends Component {
   }
 
   render() {
+    const { apiResult } = this.props;
     const { playAgain, ranking } = this.state;
     const data = localStorage.getItem('state');
     const player = JSON.parse(data);
     const qtd = player.player.assertions;
-    const n3 = 3;
-    const feedback = qtd < n3 ? 'Podia ser melhor...' : 'Mandou bem!';
+    const average = (three / five) * apiResult.length;
+    const feedback = qtd < average ? 'Podia ser melhor...' : 'Mandou bem!';
     if (playAgain) return <Redirect to="/" />;
     if (ranking) return <Redirect to="/ranking" />;
     return (
@@ -74,4 +80,16 @@ class Feedback extends Component {
   }
 }
 
-export default Feedback;
+const mapStateToProps = (state) => ({
+  apiResult: state.questionReducer.apiResult,
+});
+
+Feedback.propTypes = {
+  apiResult: arrayOf(shape({
+    category: string,
+    correct_answer: string,
+    incorrect_answers: arrayOf(string),
+  })).isRequired,
+};
+
+export default connect(mapStateToProps)(Feedback);
