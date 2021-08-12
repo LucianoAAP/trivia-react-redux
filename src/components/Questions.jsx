@@ -3,7 +3,7 @@ import { string, shape, arrayOf, func } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Button } from 'react-bootstrap';
-import Countdown from '../components/Countdown';
+import Countdown from './Countdown';
 import { increaseScore } from '../redux/actions/changeScore';
 
 const three = 3;

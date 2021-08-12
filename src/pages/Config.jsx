@@ -49,6 +49,7 @@ class Config extends Component {
     const { category, difficulty, type, questionsNumber } = this.state;
     setConfig(`https://opentdb.com/api.php?amount=${questionsNumber}${category}${difficulty}${type}`);
     this.setState({
+      questionsNumber: 5,
       category: '',
       difficulty: '',
       type: '',
