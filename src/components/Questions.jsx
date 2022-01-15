@@ -38,7 +38,6 @@ class Questions extends Component {
     const obj = {
       name: state.player.name, score: state.player.score, picture: picturePlayer,
     };
-    // const lastRanking = localStorage.getItem('ranking');
     if (!localStorage.getItem('ranking')) {
       localStorage.setItem('ranking', JSON.stringify(
         [obj],
