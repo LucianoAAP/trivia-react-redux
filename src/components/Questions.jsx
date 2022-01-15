@@ -6,9 +6,9 @@ import { Button } from 'react-bootstrap';
 import Countdown from './Countdown';
 import { increaseScore } from '../redux/actions/changeScore';
 
-const three = 3;
-const two = 2;
 const one = 1;
+const two = 2;
+const three = 3;
 const ten = 10;
 
 class Questions extends Component {
