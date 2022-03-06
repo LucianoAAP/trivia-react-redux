@@ -29,7 +29,9 @@ This project was a group effort developed by:
 
 # Getting started
 
-This project requires Node.js
+## Prerequisites
+
+This project requires the "NPM" package
 
 ## Installation
 
@@ -43,3 +45,11 @@ This project requires Node.js
 ## Starting the application
 
 Just run `npm start`
+
+# Contato
+
+## Luciano Almeida
+
+- Linkedin: https://www.linkedin.com/in/lucianoaap/
+- Github: https://www.linkedin.com/in/lucianoaap/
+- Email: lucianoalmeidaap@gmail.com
