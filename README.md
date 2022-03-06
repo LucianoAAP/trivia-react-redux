@@ -31,7 +31,7 @@ This project was a group effort developed by:
 
 ## Prerequisites
 
-This project requires the "NPM" package
+This application requires the "NPM" package
 
 ## Installation
 
