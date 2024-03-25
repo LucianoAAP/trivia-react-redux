@@ -46,7 +46,7 @@ This application requires the "NPM" package
 
 Just run `npm start`
 
-# Contato
+# Contact
 
 ## Luciano Almeida
 
